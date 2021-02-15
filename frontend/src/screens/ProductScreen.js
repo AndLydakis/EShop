@@ -1,11 +1,27 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {Row, Col, Image, ListGroup, Button, Card} from 'react-bootstrap'
 import Rating from "../components/Rating";
-import products from "../products";
+import axios from 'axios';
 
 function ProductScreen({match}) {
-    const product = products.find((p) => p._id === match.params.id)
+    const [product, setProduct] = useState([])
+    /*use effect gets triggered when the component loads*/
+    /*or when state attributes get updated*/
+    useEffect(() => {
+        console.log('Use Effect triggered')
+
+        /* Returns a promise */
+        async function fetchProduct() {
+            const {data} = await axios.get(`/api/products/${match.params.id}`)
+            console.log(data)
+            setProduct(data)
+        }
+
+        /*need to allow CORS for this to go through*/
+        fetchProduct()
+    }, [])
+
     return (
         <div>
             <Link to='/' className='btn btn-light my-3'>Go Back</Link>
@@ -51,13 +67,14 @@ function ProductScreen({match}) {
                                         Status:
                                     </Col>
                                     <Col>
-                                        {product.countInStock > 0? 'In' :'Out of'} Stock
+                                        {product.countInStock > 0 ? 'In' : 'Out of'} Stock
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
 
                             <ListGroup.Item>
-                                <Button className='btn-block' disabled={product.countInStock === 0} type='button'>Add to Cart</Button>
+                                <Button className='btn-block' disabled={product.countInStock === 0} type='button'>Add to
+                                    Cart</Button>
                             </ListGroup.Item>
                         </ListGroup>
                     </Card>

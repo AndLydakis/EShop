@@ -11,3 +11,21 @@
 ```
 npx create-react-app frontend
 ```
+
+
+### 1st time create backend
+```
+django-admin startproject backend
+```
+
+### run backend
+```
+python manage.py runserver
+```
+
+### create django app
+```
+python manage.py startapp <name>
+```
+
+and add class to ```settings.py```
