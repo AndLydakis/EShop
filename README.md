@@ -29,3 +29,7 @@ python manage.py startapp <name>
 ```
 
 and add class to ```settings.py```
+
+
+### Authentication
+[JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
