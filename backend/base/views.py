@@ -45,6 +45,11 @@ def registerUser(request):
         message = {'detail': 'user with this email already exists'}
         return Response(message, status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def loginUser(request):
+    pass
+
+
 
 @api_view(['GET'])
 def getProducts(request):
