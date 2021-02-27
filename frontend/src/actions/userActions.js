@@ -1,5 +1,12 @@
 import {USER_LOGIN_FAILURE, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT} from '../constants/userLoginConstants'
-import {USER_REGISTER_FAILURE, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS} from '../constants/userRegisterConstants'
+import {
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAILURE,
+    USER_REGISTER_FAILURE,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS
+} from '../constants/userRegisterConstants'
 
 import axios from "axios";
 import {PRODUCT_LIST_SUCCESS} from "../constants/productConstants";
@@ -74,6 +81,42 @@ export const userRegister = (name, email, password) => async (dispatch) => {
         console.log(error);
         dispatch({
             type: USER_REGISTER_FAILURE,
+            payload: error.response && error.response.data.detail ?
+                error.response.data.detail :
+                error.message
+        })
+    }
+}
+
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_DETAILS_REQUEST
+        })
+
+        const {userLogin: {userInfo}} = getState();
+        
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        const {data} = await axios.get(
+            /*id is going to be "profile"*/
+            `/api/users/${id}`,
+            config
+        )
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: USER_DETAILS_FAILURE,
             payload: error.response && error.response.data.detail ?
                 error.response.data.detail :
                 error.message
