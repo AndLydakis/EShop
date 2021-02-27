@@ -54,6 +54,7 @@ function UserProfileScreen({history}) {
                 'email': email,
                 'password': password
             }))
+            setMessage('');
         }
     }
 
