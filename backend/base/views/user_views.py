@@ -76,3 +76,12 @@ def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+@permission_classes([permissions.IsAdminUser])
+def deleteUser(request, pk):
+    # this is token data not authenticated user object
+    userToDelete = User.objects.get(id=pk)
+    userToDelete.delete()
+    return Response('User Deleted')

@@ -6,6 +6,7 @@ import {
     USER_REGISTER_SUCCESS
 } from '../constants/userRegisterConstants'
 import {USER_LIST_FAILURE, USER_LIST_REQUEST, USER_LIST_SUCCESS} from '../constants/userRegisterConstants'
+import {USER_DELETE_FAILURE, USER_DELETE_REQUEST, USER_DELETE_SUCCESS} from '../constants/userRegisterConstants'
 
 import {
     USER_DETAILS_FAILURE,
@@ -79,7 +80,7 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     }
 }
 
-export const userListReducer = (state = {users:[]}, action) => {
+export const userListReducer = (state = {users: []}, action) => {
     switch (action.type) {
         case USER_LIST_REQUEST:
             return {loading: true}
@@ -88,7 +89,20 @@ export const userListReducer = (state = {users:[]}, action) => {
         case USER_LIST_FAILURE:
             return {loading: false, error: action.payload}
         case USER_LIST_RESET:
-            return {users:[]}
+            return {users: []}
+        default:
+            return state;
+    }
+}
+
+export const userDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_DELETE_REQUEST:
+            return {loading: true}
+        case USER_DELETE_SUCCESS:
+            return {loading: false, success: true}
+        case USER_DELETE_FAILURE:
+            return {loading: false, error: action.payload}
         default:
             return state;
     }
