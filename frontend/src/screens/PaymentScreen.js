@@ -21,6 +21,7 @@ function PaymentScreen({history}) {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(savePaymentMethod(paymentMethod));
+        console.log('redirecting to place order')
         history.push('/placeorder');
     }
 
