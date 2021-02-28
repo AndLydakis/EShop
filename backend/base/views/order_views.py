@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 
 from ..models import Product, Order, OrderItem, ShippingAddress
@@ -66,3 +68,13 @@ def getOrderById(request, pk):
             return Response({'detail': 'Not Authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
         return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def updateOrderToPaid(request, pk):
+    order = Order.objects.get(_id=pk)
+    order.isPaid = True
+    order.paidAt = datetime.datetime.now()
+    order.save()
+    return Response('OrderWasPaid')
