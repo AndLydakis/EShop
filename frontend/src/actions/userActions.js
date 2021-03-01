@@ -3,7 +3,7 @@ import {
     USER_LIST_FAILURE,
     USER_LIST_REQUEST,
     USER_LIST_RESET,
-    USER_LIST_SUCCESS
+    USER_LIST_SUCCESS, USER_UPDATE_FAILURE, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS
 } from '../constants/userRegisterConstants'
 import {
     USER_DETAILS_REQUEST,
@@ -250,6 +250,47 @@ export const deleteUser = (id) => async (dispatch, getState) => {
         console.log(error);
         dispatch({
             type: USER_DELETE_FAILURE,
+            payload: error.response && error.response.data.detail ?
+                error.response.data.detail :
+                error.message
+        })
+    }
+}
+
+export const updateUser = (user) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_UPDATE_REQUEST
+        })
+
+        const {userLogin: {userInfo}} = getState();
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        console.log(user)
+        const {data} = await axios.put(
+            /*id is going to be "profile"*/
+            `/api/users/update/${user._id}/`,
+            user,
+            config
+        )
+        dispatch({
+            type: USER_UPDATE_SUCCESS,
+        })
+
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: USER_UPDATE_FAILURE,
             payload: error.response && error.response.data.detail ?
                 error.response.data.detail :
                 error.message

@@ -85,3 +85,33 @@ def deleteUser(request, pk):
     userToDelete = User.objects.get(id=pk)
     userToDelete.delete()
     return Response('User Deleted')
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAdminUser])
+def getUserById(request, pk):
+    # this is token data not authenticated user object
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([permissions.IsAuthenticated])
+def updateUserById(request, pk):
+    print('---update by id----')
+    # this is token data not authenticated user object
+    user = User.objects.get(id=pk)
+
+    data = request.data
+
+    user.first_name = data['name']
+    user.email = data['email']
+    user.username = data['email']
+    user.is_staff = data['isAdmin']
+
+    user.save()
+
+    serializer = UserSerializer(user, many=False)
+    print("----Serialized---")
+    return Response(serializer.data)

@@ -99,11 +99,11 @@ function RegisterScreen({location, history}) {
                 <Button type='submit' variant='primary'>Register</Button>
             </Form>
 
-            {/*<Row className='py-3'>*/}
-            {/*    <Col>*/}
-            {/*        Existing Customer? <Link to={redirect ? `/login?/redirect=${redirect}` : '/login'}>Sign in</Link>*/}
-            {/*    </Col>*/}
-            {/*</Row>*/}
+            <Row className='py-3'>
+                <Col>
+                    Existing Customer? <Link to={redirect ? `/login?/redirect=${redirect}` : '/login'}>Sign in</Link>
+                </Col>
+            </Row>
 
         </FormContainer>
     )

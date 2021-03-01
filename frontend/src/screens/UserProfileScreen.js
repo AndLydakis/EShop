@@ -35,7 +35,7 @@ function UserProfileScreen({history}) {
             history.push('/login')
         } else {
             /*if we don't have user info, get the data*/
-            if (!user || !user.name || success) {
+            if (!user || !user.name || success || (userInfo._id !== user._id)) {
                 /*clear state*/
                 dispatch({type: USER_UPDATE_PROFILE_RESET});
                 dispatch(getUserDetails("profile"))
