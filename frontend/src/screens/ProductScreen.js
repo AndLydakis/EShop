@@ -22,12 +22,9 @@ function ProductScreen({match, history}) {
     }, [])
 
     const addToCart = () => {
-        console.log('Add to Cart: ', match.params.id, qty);
-        console.log("** ** ");
         history.push(`/cart/${match.params.id}?qty=${qty}`);
     }
     return (
-
         <div>
             <Link to='/' className='btn btn-light my-3'>Go Back</Link>
             {loading ?
