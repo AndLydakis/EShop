@@ -28,10 +28,11 @@ class Review(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     rating = models.IntegerField(default=0, blank=True, null=True)
     comment = models.TextField(null=True, blank=True)
+    createdAt = models.DateField(auto_now_add=True)
     _id = models.AutoField(primary_key=True, editable=False)
 
     def __str__(self):
-        return str(self.rating)
+        return str(self.name) + '_' + str(self.product) + '_' + str(self.rating)
 
 
 class Order(models.Model):
