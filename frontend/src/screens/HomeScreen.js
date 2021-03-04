@@ -6,16 +6,18 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {listProducts} from '../actions/productActions'
 
-function HomeScreen() {
+function HomeScreen({history}) {
     /*use effect gets triggered when the component loads*/
     /*or when state attributes get updated*/
     const dispatch = useDispatch();
     const productList = useSelector(state => state.productList)
     const {error, loading, products} = productList
 
+    let keyword = history.location.search
+    console.log(keyword)
     useEffect(() => {
-        dispatch(listProducts())
-    }, [])
+        dispatch(listProducts(keyword))
+    }, [dispatch, keyword])
 
     return (
         <div>
