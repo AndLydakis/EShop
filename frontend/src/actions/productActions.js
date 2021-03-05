@@ -15,6 +15,7 @@ import {PRODUCT_DETAILS_FAILURE, PRODUCT_DETAILS_REQUEST, PRODUCT_DETAILS_SUCCES
 
 import {PRODUCT_CREATE_FAILURE, PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS} from '../constants/productConstants'
 import {PRODUCT_UPDATE_FAILURE, PRODUCT_UPDATE_REQUEST, PRODUCT_UPDATE_SUCCESS} from '../constants/productConstants'
+import {PRODUCT_TOP_FAILURE, PRODUCT_TOP_REQUEST, PRODUCT_TOP_SUCCESS} from '../constants/productConstants'
 
 import axios from 'axios';
 import {ORDER_LIST_MY_FAILURE, ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_SUCCESS} from "../constants/orderConstants";
@@ -31,6 +32,25 @@ export const listProducts = (keyword = '') => async (dispatch) => {
         console.log(error);
         dispatch({
             type: PRODUCT_LIST_FAILURE,
+            payload: error.response && error.response.data.detail ?
+                error.response.data.detail :
+                error.message
+        })
+    }
+}
+
+export const listTopProducts = () => async (dispatch) => {
+    try {
+        dispatch({type: PRODUCT_TOP_REQUEST})
+        const {data} = await axios.get(`/api/products/top/`)
+        dispatch({
+            type: PRODUCT_TOP_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: PRODUCT_TOP_FAILURE,
             payload: error.response && error.response.data.detail ?
                 error.response.data.detail :
                 error.message

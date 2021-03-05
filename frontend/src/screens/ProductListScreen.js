@@ -34,14 +34,13 @@ function ProductListScreen({history}) {
         dispatch({type: PRODUCT_CREATE_RESET})
         if (!userInfo.isAdmin) {
             history.push('/login')
-
         }
         if (create_success) {
             history.push(`/admin/product/${created_product._id}/edit`)
         } else {
             dispatch(listProducts(keyword))
         }
-    }, [dispatch, history, userInfo, delete_success, keyword])
+    }, [dispatch, history, userInfo, delete_success, keyword, create_success])
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {

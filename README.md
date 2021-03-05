@@ -1,13 +1,22 @@
 # Pro Shop
-### Django based e-Shop, hosted on Heroku and AWS (for Postgress)  
+### Django/React/Postgres based e-Shop, hosted on Heroku and AWS  
 
-### Features:
 * Paypal API
 * User Account/Reviews
-* Admin Panels
+* Admin Panels (Edit User/Order/Products)
+* Object Carousel
+* Object Search
 
-### 
-1st time create frontend: 
+See [some images](WALKTHROUGH.md)
+
+Occasionally hosted on [proshop-and.herokuapp.com](proshop-and.herokuapp.com)  
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+### [Deployment](DEPLOYMENT.md)
+
+### Random Environment Notes
+
+### 1st time create frontend: 
 ```
 npx create-react-app frontend
 ```
@@ -27,9 +36,6 @@ python manage.py runserver
 ```
 python manage.py startapp <name>
 ```
-
-and add class to ```settings.py```
-
 
 ### Authentication
 [JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)

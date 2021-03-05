@@ -187,7 +187,7 @@ function ProductEditScreen({match, history}) {
                         <FormGroup controlId='description'>
                             <Form.Label>Description</Form.Label>
                             <Form.Control
-                                type='number'
+                                type='text'
                                 placeholder='Enter Description'
                                 value={description}
                                 onChange={(e => {

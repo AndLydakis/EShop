@@ -147,8 +147,8 @@ function ProductScreen({match, history}) {
                             </Row>
                             <Row md={6}>
                                 <h4>Reviews</h4>
-                                {product.reviews.length === 0 && <Message variant={'info'}>No Reviews</Message>}
                                 <ListGroup variant={'flush'}>
+                                    {product.reviews.length === 0 && <Message variant={'info'}>No Reviews</Message>}
                                     {product.reviews.map((review) => (
                                         <ListGroup.Item key={review._id}>
                                             <strong>{review.name}</strong>

@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Row, Col} from 'react-bootstrap'
+import {Row, Col, Carousel} from 'react-bootstrap'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Paginate from '../components/Paginate'
+import ProductCarousel from '../components/ProductCarousel'
 import {listProducts} from '../actions/productActions'
 
 function HomeScreen({history}) {
@@ -15,13 +16,15 @@ function HomeScreen({history}) {
     const {error, loading, products, page, pages} = productList
 
     let keyword = history.location.search
-    console.log(keyword)
+    console.log(!keyword)
     useEffect(() => {
         dispatch(listProducts(keyword))
     }, [dispatch, keyword])
 
     return (
         <div>
+            {/*{!keyword && <ProductCarousel/>}*/}
+            <ProductCarousel/>
             <h1>Latest Products</h1>
             {loading ? <Loader/>
                 : error ? <Message variant='danger'>{error}</Message>
